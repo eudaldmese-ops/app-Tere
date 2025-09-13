@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajudant de Comunicació</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            padding: 16px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #374151;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .back-btn {
+            background-color: #6b7280;
+            color: white;
+        }
+        
+        .back-btn:hover {
+            background-color: #4b5563;
+        }
+        
+        .home-btn {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .home-btn:hover {
+            background-color: #2563eb;
+        }
+        
+        .selected-section {
+            background-color: #fef3c7;
+            padding: 16px;
+            border-radius: 8px;
+        }
+        
+        .selected-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .selected-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .clear-btn {
+            background-color: #ef4444;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .clear-btn:hover {
+            background-color: #dc2626;
+        }
+        
+        .selected-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .selected-item {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #374151;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+        }
+        
+        .main-title {
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            color: #374151;
+            margin-bottom: 32px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .item-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 24px;
+            border: none;
+            border-radius: 16px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            line-height: 1.2;
+            min-height: 120px;
+        }
+        
+        .item-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .item-btn.yesno {
+            min-height: 160px;
+            font-size: 48px;
+        }
+        
+        .emergency-section {
+            text-align: center;
+            margin-top: 32px;
+        }
+        
+        .emergency-btn {
+            background-color: #dc2626;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            padding: 24px 32px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .emergency-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Colors */
+        .bg-blue-500 { background-color: #3b82f6; }
+        .bg-red-500 { background-color: #ef4444; }
+        .bg-green-500 { background-color: #10b981; }
+        .bg-purple-500 { background-color: #8b5cf6; }
+        .bg-orange-500 { background-color: #f97316; }
+        .bg-yellow-500 { background-color: #eab308; }
+        .bg-blue-400 { background-color: #60a5fa; }
+        .bg-gray-500 { background-color: #6b7280; }
+        .bg-red-400 { background-color: #f87171; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-pink-500 { background-color: #ec4899; }
+        .bg-green-600 { background-color: #059669; }
+        .bg-red-600 { background-color: #dc2626; }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 24px;
+            }
+            
+            .main-title {
+                font-size: 32px;
+            }
+            
+            .item-btn {
+                font-size: 20px;
+                min-height: 100px;
+            }
+            
+            .item-btn.yesno {
+                font-size: 40px;
+                min-height: 140px;
+            }
+            
+            .emergency-btn {
+                font-size: 24px;
+                padding: 16px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <h1 class="title">Ajudant de Comunicació</h1>
+                <div class="nav-buttons">
+                    <button id="backBtn" class="nav-btn back-btn hidden">
+                        ← Enrere
+                    </button>
+                    <button id="homeBtn" class="nav-btn home-btn">
+                        🏠 Inici
+                    </button>
+                </div>
+            </div>
+            
+            <div id="selectedSection" class="selected-section hidden">
+                <div class="selected-header">
+                    <h3 class="selected-title">Seleccionat:</h3>
+                    <button id="clearBtn" class="clear-btn">Esborrar Tot</button>
+                </div>
+                <div id="selectedItems" class="selected-items"></div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2 id="mainTitle" class="main-title">Què necessites?</h2>
+            <div id="grid" class="grid"></div>
+            
+            <div id="emergencySection" class="emergency-section hidden">
+                <button id="emergencyBtn" class="emergency-btn">
+                    🚨 EMERGÈNCIA AJUDA! 🚨
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categories = {
+            home: {
+                title: "Què necessites?",
+                items: [
+                    { id: 'basic', text: 'Necessitats Bàsiques', color: 'bg-blue-500' },
+                    { id: 'pain', text: 'Dolor o Malestar', color: 'bg-red-500' },
+                    { id: 'feelings', text: 'Com em Sento', color: 'bg-green-500' },
+                    { id: 'activities', text: 'Què Vull', color: 'bg-purple-500' },
+                    { id: 'yesno', text: 'Sí o No', color: 'bg-orange-500' }
+                ]
+            },
+            basic: {
+                title: "Necessitats Bàsiques",
+                items: [
+                    { id: 'food', text: 'Tinc gana', color: 'bg-yellow-500' },
+                    { id: 'water', text: 'Tinc set', color: 'bg-blue-400' },
+                    { id: 'bathroom', text: 'Necessito anar al lavabo', color: 'bg-gray-500' },
+                    { id: 'hot', text: 'Tinc massa calor', color: 'bg-red-400' },
+                    { id: 'cold', text: 'Tinc massa fred', color: 'bg-blue-600' },
+                    { id: 'medicine', text: 'Necessito medicina', color: 'bg-pink-500' }
+                ]
+            },
+            pain: {
+                title: "On et fa mal?",
+                items: [
+                    { id: 'head', text: 'Em fa mal el cap', color: 'bg-red-500' },
+                    { id: 'stomach', text: 'Em fa mal el ventre', color: 'bg-red-500' },
+                    { id: 'back', text: 'Em fa mal l\'esquena', color: 'bg-red-500' },
+                    { id: 'chest', text: 'Em fa mal el pit', color: 'bg-red-500' },
+                    { id: 'legs', text: 'Em fan mal les cames', color: 'bg-red-500' },
+                    { id: 'arms', text: 'Em fan mal els braços', color: 'bg-red-500' },
+                    { id: 'nopain', text: 'Ara no tinc dolor', color: 'bg-green-500' }
+                ]
+            },
+            feelings: {
+                title: "Com et sents?",
+                items: [
+                    { id: 'tired', text: 'Estic cansada', color: 'bg-blue-500' },
+                    { id: 'scared', text: 'Tinc por', color: 'bg-red-500' },
+                    { id: 'sad', text: 'Estic trista', color: 'bg-gray-500' },
+                    { id: 'happy', text: 'Estic contenta', color: 'bg-green-500' },
+                    { id: 'frustrated', text: 'Estic frustrada', color: 'bg-orange-500' },
+                    { id: 'confused', text: 'Estic confosa', color: 'bg-purple-500' }
+                ]
+            },
+            activities: {
+                title: "Què vols?",
+                items: [
+                    { id: 'rest', text: 'Vull descansar', color: 'bg-blue-500' },
+                    { id: 'tv', text: 'Veure la televisió', color: 'bg-purple-500' },
+                    { id: 'outside', text: 'Sortir fora', color: 'bg-green-500' },
+                    { id: 'family', text: 'Veure la família', color: 'bg-pink-500' },
+                    { id: 'alone', text: 'Estar sola', color: 'bg-gray-500' },
+                    { id: 'help', text: 'Necessito ajuda', color: 'bg-red-500' }
+                ]
+            },
+            yesno: {
+                title: "Sí o No?",
+                items: [
+                    { id: 'yes', text: 'SÍ', color: 'bg-green-600' },
+                    { id: 'no', text: 'NO', color: 'bg-red-600' }
+                ]
+            }
+        };
+
+        let currentScreen = 'home';
+        let selectedItems = [];
+
+        function updateUI() {
+            const category = categories[currentScreen];
+            const mainTitle = document.getElementById('mainTitle');
+            const grid = document.getElementById('grid');
+            const backBtn = document.getElementById('backBtn');
+            const emergencySection = document.getElementById('emergencySection');
+            const selectedSection = document.getElementById('selectedSection');
+
+            mainTitle.textContent = category.title;
+            grid.innerHTML = '';
+
+            // Show/hide back button
+            if (currentScreen !== 'home') {
+                backBtn.classList.remove('hidden');
+                emergencySection.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
+                emergencySection.classList.add('hidden');
+            }
+
+            // Show/hide selected items
+            if (selectedItems.length > 0) {
+                selectedSection.classList.remove('hidden');
+                updateSelectedItems();
+            } else {
+                selectedSection.classList.add('hidden');
+            }
+
+            // Create buttons
+            category.items.forEach(item => {
+                const button = document.createElement('button');
+                button.className = `item-btn ${item.color}`;
+                if (currentScreen === 'yesno') {
+                    button.classList.add('yesno');
+                }
+                button.textContent = item.text;
+                
+                button.addEventListener('click', () => {
+                    if (currentScreen === 'home') {
+                        currentScreen = item.id;
+                        updateUI();
+                    } else {
+                        selectItem(item);
+                    }
+                });
+                
+                grid.appendChild(button);
+            });
+        }
+
+        function selectItem(item) {
+            selectedItems.push({
+                text: item.text,
+                timestamp: new Date()
+            });
+            updateUI();
+        }
+
+        function updateSelectedItems() {
+            const container = document.getElementById('selectedItems');
+            container.innerHTML = '';
+            
+            selectedItems.forEach(item => {
+                const span = document.createElement('span');
+                span.className = 'selected-item';
+                span.textContent = item.text;
+                container.appendChild(span);
+            });
+        }
+
+        function goHome() {
+            currentScreen = 'home';
+            updateUI();
+        }
+
+        function goBack() {
+            if (currentScreen !== 'home') {
+                currentScreen = 'home';
+                updateUI();
+            }
+        }
+
+        function clearSelections() {
+            selectedItems = [];
+            updateUI();
+        }
+
+        function handleEmergency() {
+            selectItem({ text: 'EMERGÈNCIA - DEMANO AJUDA!' });
+        }
+
+        // Event listeners
+        document.getElementById('homeBtn').addEventListener('click', goHome);
+        document.getElementById('backBtn').addEventListener('click', goBack);
+        document.getElementById('clearBtn').addEventListener('click', clearSelections);
+        document.getElementById('emergencyBtn').addEventListener('click', handleEmergency);
+
+        // Initialize
+        updateUI();
+    </script>
+</body>
+</html>
